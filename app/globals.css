@@ -77,6 +77,39 @@ body {
   box-shadow: var(--shadow);
 }
 
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(12, 15, 26, 0.5);
+  display: grid;
+  place-items: center;
+  z-index: 20;
+  padding: 20px;
+}
+
+.modal {
+  width: min(420px, 100%);
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.modal h3 {
+  margin: 0 0 8px;
+}
+
+.modal p {
+  margin: 0 0 16px;
+  color: rgba(12, 15, 26, 0.7);
+}
+
+.modal-form {
+  display: grid;
+  gap: 12px;
+}
+
 .pill {
   display: inline-flex;
   gap: 8px;

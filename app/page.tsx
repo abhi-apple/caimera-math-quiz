@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import type { FormEvent } from 'react';
 
 type Question = {
   id: string;
@@ -38,6 +39,7 @@ export default function HomePage() {
   const [now, setNow] = useState(Date.now());
   const [serverOffset, setServerOffset] = useState(0);
   const [activeCount, setActiveCount] = useState(0);
+  const [nameInput, setNameInput] = useState('');
 
   const expiresIn = useMemo(() => {
     if (!question?.expiresAt) return null;
@@ -86,6 +88,7 @@ export default function HomePage() {
     }
     if (storedName) {
       setUserName(storedName);
+      setNameInput(storedName);
       if (storedUserId) {
         registerUser(storedUserId, storedName).catch(() => {});
       }
@@ -145,7 +148,7 @@ export default function HomePage() {
     window.localStorage.setItem('quiz:userName', nextName);
   }
 
-  async function handleSubmit(e:any) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     if (!question) return;
     if (question.status === 'intermission') {
@@ -194,11 +197,25 @@ export default function HomePage() {
     }
   }
 
+  async function handleNameSubmit(e: FormEvent) {
+    e.preventDefault();
+    const trimmed = nameInput.trim();
+    if (!trimmed) return;
+    let currentUserId = userId;
+    if (!currentUserId) {
+      currentUserId = crypto.randomUUID();
+      setUserId(currentUserId);
+    }
+    await registerUser(currentUserId, trimmed);
+    setUserName(trimmed);
+    setStatus('');
+  }
+
   return (
     <main className="page">
       <section className="hero">
         <div className="banner">
-          Backend is on Render free tier. Your free instance will spin down with inactivity,
+          Backend is deployed on Render free tier. The instance spins down with inactivity,
           which can delay requests by 50 seconds or more.
         </div>
         <div className="hero-card">
@@ -297,6 +314,23 @@ export default function HomePage() {
           </ol>
         </div>
       </section>
+      {!userName && (
+        <div className="modal-backdrop">
+          <div className="modal">
+            <h3>Choose a display name</h3>
+            <p>This name will appear on the leaderboard.</p>
+            <form onSubmit={handleNameSubmit} className="modal-form">
+              <input
+                value={nameInput}
+                onChange={e => setNameInput(e.target.value)}
+                placeholder="your name"
+                autoFocus
+              />
+              <button type="submit">Continue</button>
+            </form>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
