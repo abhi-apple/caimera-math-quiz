@@ -197,6 +197,10 @@ export default function HomePage() {
   return (
     <main className="page">
       <section className="hero">
+        <div className="banner">
+          Backend is on Render free tier. Your free instance will spin down with inactivity,
+          which can delay requests by 50 seconds or more.
+        </div>
         <div className="hero-card">
           <div className="pill">
             <span className={`dot ${connected ? 'live' : 'down'}`} />
@@ -209,10 +213,6 @@ export default function HomePage() {
           <p>
             First correct answer wins. Questions rotate fast, and the server decides the winner
             to keep things fair across network speeds.
-          </p>
-          <p className="notice">
-            Note: Backend is on Render free tier. Your free instance will spin down with inactivity,
-            which can delay requests by 50 seconds or more.
           </p>
         </div>
       </section>
