@@ -210,6 +210,10 @@ export default function HomePage() {
             First correct answer wins. Questions rotate fast, and the server decides the winner
             to keep things fair across network speeds.
           </p>
+          <p className="notice">
+            Note: Backend is on Render free tier. Your free instance will spin down with inactivity,
+            which can delay requests by 50 seconds or more.
+          </p>
         </div>
       </section>
 

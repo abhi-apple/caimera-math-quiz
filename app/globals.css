@@ -56,6 +56,12 @@ body {
   line-height: 1.6;
 }
 
+.notice {
+  margin-top: 12px;
+  font-size: 0.9rem;
+  color: rgba(12, 15, 26, 0.65);
+}
+
 .pill {
   display: inline-flex;
   gap: 8px;
